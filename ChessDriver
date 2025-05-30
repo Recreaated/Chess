@@ -1,0 +1,12 @@
+//import com.sun.tools.javac.Main;
+import javax.swing.SwingUtilities;
+
+public class ChessDriver {
+
+    public static void main(String[] args){
+        SwingUtilities.invokeLater(() ->{
+            MainWindow main = new MainWindow();
+        });
+    }
+
+}
