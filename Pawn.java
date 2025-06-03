@@ -1,5 +1,5 @@
-public class Queen extends Piece{
-    public Queen(String name){
+public class Pawn extends Piece{
+    public Pawn (String name){
         super(name);
     }
     @Override
