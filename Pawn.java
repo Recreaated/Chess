@@ -1,14 +1,18 @@
-public class Pawn extends Piece{
-    public Pawn (String name){
-        super(name);
+public class Piece {
+    String name;
+    public Piece(String name){
+        this.name = name;
     }
-    @Override
-    public void movesAvaliable(){
+    public Piece(){
+        this.name = null;
+    }
+    public String getName(){
+        return name;
+    }
 
-    }
-    @Override
+    public void movesAvaliable(){}
     public int[] possibleChecks(){
-        int[] output = {0,0};
+        int[] output = {-1,-1};
         return output;
     }
 }
