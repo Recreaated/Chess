@@ -9,6 +9,7 @@ public class King extends Piece{
     }
     @Override
     public int[] possibleChecks(){
-
+        int[] output = {0,0};
+        return output;
     }
 }
