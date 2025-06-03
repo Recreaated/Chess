@@ -1,18 +1,14 @@
-public class Piece {
-    String name;
-    public Piece(String name){
-        this.name = name;
+public class Queen extends Piece{
+    public Queen(String name){
+        super(name);
     }
-    public Piece(){
-        this.name = null;
-    }
-    public String getName(){
-        return name;
-    }
+    @Override
+    public void movesAvaliable(){
 
-    public void movesAvaliable(){}
+    }
+    @Override
     public int[] possibleChecks(){
-        int[] output = {-1,-1};
+        int[] output = {0,0};
         return output;
     }
 }
