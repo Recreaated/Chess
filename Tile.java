@@ -12,7 +12,9 @@ public class Tile {
         this.yCord = yCord;
         this.piece = piece;
     }
-
+    public String getName(){
+        return piece.getName();
+    }
     public Button getButton(){
         return b;
     }
