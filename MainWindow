@@ -8,13 +8,22 @@ import java.awt.event.ActionEvent;
 
 public class MainWindow {
 
+
+    private final Piece[][] startingLayout = {{new Rook("Rook"),new Knight("Knight"),new Bishop("Bishop"),new Queen("Queen"),new King("King"),new Bishop("Bishop"),new Knight("Knight"),new Rook("Rook")},
+        {new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn")},
+        {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
+        {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
+        {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
+        {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
+        {new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn")},
+        {new Rook("Rook"),new Knight("Knight"),new Bishop("Bishop"),new Queen("Queen"),new King("King"),new Bishop("Bishop"),new Knight("Knight"),new Rook("Rook")}};
     public MainWindow(){
         innit();
     }//end of constructor
 
     private void innit(){
         JFrame window = new JFrame();
-        window.setTitle("Andrew Benitez finally knows how to code");
+        window.setTitle("Chess");
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setSize(800,500);
         window.setLocationRelativeTo(null);
@@ -25,21 +34,26 @@ public class MainWindow {
 
 
         panel.setBackground(Color.WHITE);
-        char[] horLtr= {'A','B','C','D','E','F','G','H'};
-        Button[][] chessBoard = new Button[8][8];
+        char[] horLtr = {'A','B','C','D','E','F','G','H'};
+        Tile[][] chessBoard = new Tile[8][8];
         for(int row = 0; row < 8; row++) {
             for(int col = 0; col < 8; col++) {
                 String label = ""+ horLtr[row] + (col+1);
-                chessBoard[row][col] =new Button(label);
+                String pieceName = startingLayout[row][col].getName();
+                chessBoard[row][col] =new Tile(pieceName,row,col, startingLayout[row][col]);
                 if (((row + col) % 2 == 0)) {
-                    chessBoard[row][col].setBackground(Color.black);
+                    chessBoard[row][col].getButton().setBackground(Color.black);
                 } else {
-                    chessBoard[row][col].setBackground(Color.getHSBColor(158,91,25));
+                    chessBoard[row][col].getButton().setBackground(Color.getHSBColor(158,91,25));
                 }
-                chessBoard[row][col].setPreferredSize((new Dimension(50,50)));
-                chessBoard[row][col].addActionListener((ActionEvent e) -> System.out.println(label + " button was pressed"));
-                panel.add(chessBoard[row][col]);
+                chessBoard[row][col].getButton().setPreferredSize((new Dimension(100,100)));
+                //Interface usage here "ActionEvent -> ..." lambda
+                chessBoard[row][col].getButton().addActionListener((ActionEvent e) -> {
+                    System.out.println(label + " button was pressed. Contains :" + pieceName);
+                });
+                panel.add(chessBoard[row][col].getButton());
             }
+
         }
 
         window.setVisible(true);
