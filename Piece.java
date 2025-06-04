@@ -4,6 +4,13 @@ public class Piece {
         this.name = name;
     }
 
+    public Piece(){
+        this.name = null;
+    }
+
+    public String getName(){
+        return name;
+    }
     public void movesAvaliable(){}
-    public int[] possibleChecks(){}
+    public int[] possibleChecks(){return new int[] {-1, -1};}
 }

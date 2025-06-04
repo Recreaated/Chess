@@ -25,15 +25,16 @@ public class MainWindow {
         JFrame window = new JFrame();
         window.setTitle("Chess");
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        window.setSize(800,500);
+        window.setResizable(false);
+        window.setSize(850,850);
         window.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
         window.add(panel, BorderLayout.CENTER);
 
-
-        panel.setBackground(Color.WHITE);
+/*
+        panel.setBackground(new Color(200,200,200));
         char[] horLtr = {'A','B','C','D','E','F','G','H'};
         Tile[][] chessBoard = new Tile[8][8];
         for(int row = 0; row < 8; row++) {
@@ -41,10 +42,11 @@ public class MainWindow {
                 String label = ""+ horLtr[row] + (col+1);
                 String pieceName = startingLayout[row][col].getName();
                 chessBoard[row][col] =new Tile(pieceName,row,col, startingLayout[row][col]);
+                chessBoard[row][col].getButton().setLocation(row*100+50,col*100+50);
                 if (((row + col) % 2 == 0)) {
-                    chessBoard[row][col].getButton().setBackground(Color.black);
+                    chessBoard[row][col].getButton().setBackground(Color.white);
                 } else {
-                    chessBoard[row][col].getButton().setBackground(Color.getHSBColor(158,91,25));
+                    chessBoard[row][col].getButton().setBackground(new Color(0,183,43));
                 }
                 chessBoard[row][col].getButton().setPreferredSize((new Dimension(100,100)));
                 //Interface usage here "ActionEvent -> ..." lambda
@@ -55,7 +57,7 @@ public class MainWindow {
             }
 
         }
-
+**/
         window.setVisible(true);
     }//end of initializer method
 }
