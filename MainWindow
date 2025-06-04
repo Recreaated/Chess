@@ -17,6 +17,9 @@ public class MainWindow {
         {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
         {new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn"),new Pawn("Pawn")},
         {new Rook("Rook"),new Knight("Knight"),new Bishop("Bishop"),new Queen("Queen"),new King("King"),new Bishop("Bishop"),new Knight("Knight"),new Rook("Rook")}};
+
+    public JPanel[] chessRows = new JPanel[8];
+
     public MainWindow(){
         innit();
     }//end of constructor
@@ -25,18 +28,22 @@ public class MainWindow {
         JFrame window = new JFrame();
         window.setTitle("Chess");
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        window.setSize(800,500);
+        window.setSize(1000,900);
         window.setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
-        window.add(panel, BorderLayout.CENTER);
+        JPanel MainPanel = new JPanel();
 
 
-        panel.setBackground(Color.WHITE);
+        
+        MainPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+        window.add(MainPanel, BorderLayout.CENTER);
+
+
+        MainPanel.setBackground(Color.WHITE);
         char[] horLtr = {'A','B','C','D','E','F','G','H'};
         Tile[][] chessBoard = new Tile[8][8];
         for(int row = 0; row < 8; row++) {
+            chessRows[row] = new JPanel();
             for(int col = 0; col < 8; col++) {
                 String label = ""+ horLtr[row] + (col+1);
                 String pieceName = startingLayout[row][col].getName();
@@ -44,16 +51,17 @@ public class MainWindow {
                 if (((row + col) % 2 == 0)) {
                     chessBoard[row][col].getButton().setBackground(Color.black);
                 } else {
-                    chessBoard[row][col].getButton().setBackground(Color.getHSBColor(158,91,25));
+                    chessBoard[row][col].getButton().setBackground(new Color(0,148,56));
                 }
                 chessBoard[row][col].getButton().setPreferredSize((new Dimension(100,100)));
                 //Interface usage here "ActionEvent -> ..." lambda
                 chessBoard[row][col].getButton().addActionListener((ActionEvent e) -> {
                     System.out.println(label + " button was pressed. Contains :" + pieceName);
                 });
-                panel.add(chessBoard[row][col].getButton());
+                chessRows[row].add(chessBoard[row][col].getButton());
             }
-
+            chessRows[row].setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+            MainPanel.add(chessRows[row]);
         }
 
         window.setVisible(true);
