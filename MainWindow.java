@@ -10,9 +10,10 @@ import java.awt.event.ActionEvent;
 
 public class MainWindow {
     private Tile[][] chessBoard;
+    private JPanel topLevelPanel;
     private JFrame window;
     private JPanel MainPanel;
-    private final Piece[][] startingLayout = {{new Rook("B.Rook"),new Knight("B.Knight"),new Bishop("B.ishop"),new Queen("B.Queen"),new King("B.King"),new Bishop("B.Bishop"),new Knight("B.Knight"),new Rook("B.Rook")},
+    private final Piece[][] startingLayout = {{new Rook("B.Rook"),new Knight("B.Knight"),new Bishop("B.Bishop"),new Queen("B.Queen"),new King("B.King"),new Bishop("B.Bishop"),new Knight("B.Knight"),new Rook("B.Rook")},
         {new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn")},
         {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
         {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
@@ -34,10 +35,14 @@ public class MainWindow {
         window.setSize(1000,900);
         window.setLocationRelativeTo(null);
 
+        topLevelPanel = new JPanel();
         MainPanel = new JPanel();
 
+        MainPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+        topLevelPanel.add(MainPanel);
+        topLevelPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+        window.add(topLevelPanel, BorderLayout.CENTER);
 
-        
 
 
         MainPanel.setBackground(Color.WHITE);
@@ -64,22 +69,21 @@ public class MainWindow {
             chessRows[row].setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
             MainPanel.add(chessRows[row]);
         }
-/*
+//        MainPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+//        topLevelPanel.add(MainPanel);
         JPanel infoPanel = new JPanel();
-        JButton temp = new JButton(new String("This is a test of this formated field\nthis should work in theory\nbut no one knows"));
-                //new JLabel(new String("This is a test of this formated field\nthis should work in theory\nbut no one knows"));
-//        temp.setMinimumSize(new Dimension(50,800));
-//        temp.setMaximumSize(new Dimension(-1,800));
-        temp.setPreferredSize(new Dimension(-1,800));
-        temp.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+        infoPanel.setBackground(Color.black);
+        infoPanel.setBounds(new Rectangle(800,0,1000,800));
+        JTextArea temp = new JTextArea("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+        temp.setEditable(false);
+        temp.setBounds(new Rectangle(800,0,1000,800));
         infoPanel.add(temp);
 
-        infoPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-        MainPanel.add(infoPanel);
-*/
-        MainPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-        window.add(MainPanel, BorderLayout.CENTER);
-        window.setSize(1000,900);
+        infoPanel.setLayout(new FlowLayout(FlowLayout.RIGHT,10,0));
+        topLevelPanel.add(infoPanel);
+
+
+
 //        window.setResizable(false);
         window.setVisible(true);
     }//end of initializer method
