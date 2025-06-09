@@ -1,7 +1,7 @@
 public class Pawn extends Piece{
 
     private boolean[][] movesPossible;
-    private boolean hasMoved = false;
+    private int timesMoved = 0;
 
     public Pawn (String name){
         super(name);
@@ -11,42 +11,46 @@ public class Pawn extends Piece{
         movesPossible = new boolean[8][8];
         if(super.getName().substring(0,1).equalsIgnoreCase("w")){
             //White Pawn//
-            if (c > 0) {
-                if (MainWindow.chessBoard[r - 1][c - 1].getName() != null) {
-                    movesPossible[r - 1][c - 1] = true;
+            if( r >= 1) {
+                if (c > 0) {
+                    if (MainWindow.chessBoard[r - 1][c - 1].getName() != null) {
+                        movesPossible[r - 1][c - 1] = true;
+                    }
                 }
-            }
-            if(MainWindow.chessBoard[r -1][c].getName() == null){
-                movesPossible[r -1][c] = true;
-            }
-            if(!hasMoved){
-                if(MainWindow.chessBoard[r -2][c].getName() == null){
-                    movesPossible[r -2][c] = true;
+                if (MainWindow.chessBoard[r - 1][c].getName() == null) {
+                    movesPossible[r - 1][c] = true;
                 }
-            }
-            if (c < 7) {
-                if (MainWindow.chessBoard[r - 1][c + 1].getName() != null) {
-                    movesPossible[r - 1][c + 1] = true;
+                if (timesMoved == 0) {
+                    if (MainWindow.chessBoard[r - 2][c].getName() == null) {
+                        movesPossible[r - 2][c] = true;
+                    }
+                }
+                if (c < 7) {
+                    if (MainWindow.chessBoard[r - 1][c + 1].getName() != null) {
+                        movesPossible[r - 1][c + 1] = true;
+                    }
                 }
             }
         } else {
             //Black pawn//
-            if (c > 0) {
-                if (MainWindow.chessBoard[r + 1][c - 1].getName() != null) {
-                    movesPossible[r + 1][c - 1] = true;
+            if(r <= 6) {
+                if (c > 0) {
+                    if (MainWindow.chessBoard[r + 1][c - 1].getName() != null) {
+                        movesPossible[r + 1][c - 1] = true;
+                    }
                 }
-            }
-            if(MainWindow.chessBoard[r +1][c].getName() == null){
-                movesPossible[r +1][c] = true;
-            }
-            if(!hasMoved){
-                if(MainWindow.chessBoard[r +2][c].getName() == null){
-                    movesPossible[r +2][c] = true;
+                if (MainWindow.chessBoard[r + 1][c].getName() == null) {
+                    movesPossible[r + 1][c] = true;
                 }
-            }
-            if (c < 7) {
-                if (MainWindow.chessBoard[r + 1][c + 1].getName() != null) {
-                    movesPossible[r + 1][c + 1] = true;
+                if (timesMoved == 0) {
+                    if (MainWindow.chessBoard[r + 2][c].getName() == null) {
+                        movesPossible[r + 2][c] = true;
+                    }
+                }
+                if (c < 7) {
+                    if (MainWindow.chessBoard[r + 1][c + 1].getName() != null) {
+                        movesPossible[r + 1][c + 1] = true;
+                    }
                 }
             }
         }
@@ -59,6 +63,10 @@ public class Pawn extends Piece{
     }
     public boolean[][] getMovesPossible() {
         return movesPossible;
+    }
+    @Override
+    public void addToTotalMoves(){
+        timesMoved++;
     }
 
     private void print(){
