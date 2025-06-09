@@ -10,6 +10,7 @@ public class King extends Piece{
     }
     @Override
     public void updateMovesPossible(int r, int c){
+        attackingPeices.clear();
         movesPossible = new boolean[8][8];
         if(GameMechanics.getTurnIndex() >= 2) {
             oppositePieceChecks = updateOpposite(r,c);
@@ -84,7 +85,11 @@ public class King extends Piece{
         }
 //        print();
         if(!attackingPeices.isEmpty()){
-            System.out.println("updating kingincheck");
+//            System.out.println("updating kingincheck");
+            if(attackingPeices.size()>=2){
+                trimDupes();
+            }
+            System.out.println("In King class: " + attackingPeices.size());
             GameMechanics.setKingInCheck(MainWindow.chessBoard[r][c]);
         }
     }
@@ -111,7 +116,7 @@ public class King extends Piece{
                         System.out.println("in check");
                         attackingPeices.add(c);
                     }
-                    if(c.getName().contains("Pawn")) {
+                    if(c.getName().contains("Pawn") && c.getX() != 0 && c.getX() != 7) {
 //                        System.out.println("Pawn check");
                         for (boolean[] ro : temp) {
                             for (boolean co : ro) {
@@ -187,6 +192,17 @@ public class King extends Piece{
     public void resetAttackingPiece(){
         attackingPeices.clear();
     }
+
+    public void trimDupes(){
+        for (int i = 0; i < attackingPeices.size()-1; i++) {
+            for(int j = i+1; j < attackingPeices.size();j++){
+                if(attackingPeices.get(i).equals(attackingPeices.get(j))){
+                    attackingPeices.remove(j);
+                }
+            }
+        }
+    }
+
 
     private void print(){
         for(boolean[] r : movesPossible){
