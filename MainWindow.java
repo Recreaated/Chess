@@ -9,8 +9,7 @@ import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
 
 public class MainWindow {
-    private Tile[][] chessBoard;
-    private JPanel topLevelPanel;
+    public static Tile[][] chessBoard;
     private JFrame window;
     private JPanel MainPanel;
     private final Piece[][] startingLayout = {{new Rook("B.Rook"),new Knight("B.Knight"),new Bishop("B.Bishop"),new Queen("B.Queen"),new King("B.King"),new Bishop("B.Bishop"),new Knight("B.Knight"),new Rook("B.Rook")},
@@ -22,7 +21,6 @@ public class MainWindow {
         {new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn")},
         {new Rook("W.Rook"),new Knight("W.Knight"),new Bishop("W.Bishop"),new Queen("W.Queen"),new King("W.King"),new Bishop("W.Bishop"),new Knight("W.Knight"),new Rook("W.Rook")}};
 
-    public JPanel[] chessRows = new JPanel[8];
 
     public MainWindow(){
         innit();
@@ -35,13 +33,14 @@ public class MainWindow {
         window.setSize(1000,900);
         window.setLocationRelativeTo(null);
 
-        topLevelPanel = new JPanel();
+        //topLevelPanel = new JPanel();
         MainPanel = new JPanel();
 
         MainPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-        topLevelPanel.add(MainPanel);
-        topLevelPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-        window.add(topLevelPanel, BorderLayout.CENTER);
+        MainPanel.setBounds(0,0,800,800);
+        //topLevelPanel.add(MainPanel);
+        //topLevelPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+        window.add(MainPanel);
 
 
 
@@ -49,9 +48,8 @@ public class MainWindow {
         char[] horLtr = {'A','B','C','D','E','F','G','H'};
         chessBoard = new Tile[8][8];
         for(int row = 0; row < 8; row++) {
-            chessRows[row] = new JPanel();
             for(int col = 0; col < 8; col++) {
-                String label = ""+ horLtr[row] + (col+1);
+                String label = ""+ horLtr[col] + (8-row);
                 String pieceName = startingLayout[row][col].getName();
                 chessBoard[row][col] =new Tile(pieceName,row,col, startingLayout[row][col]);
                 if (((row + col) % 2 == 0)) {
@@ -61,30 +59,36 @@ public class MainWindow {
                 }
                 chessBoard[row][col].getButton().setPreferredSize((new Dimension(100,100)));
                 //Interface usage here "ActionEvent -> ..." lambda
+                final Tile tile = chessBoard[row][col];
                 chessBoard[row][col].getButton().addActionListener((ActionEvent e) -> {
-                    System.out.println(label + " button was pressed. Contains :" + pieceName);
+
+                    System.out.print(label + " button was pressed.");
+                    GameMechanics.updateLastTile(tile);
                 });
-                chessRows[row].add(chessBoard[row][col].getButton());
+                MainPanel.add(chessBoard[row][col].getButton());
             }
-            chessRows[row].setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-            MainPanel.add(chessRows[row]);
         }
 //        MainPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
 //        topLevelPanel.add(MainPanel);
+
         JPanel infoPanel = new JPanel();
         infoPanel.setBackground(Color.black);
-        infoPanel.setBounds(new Rectangle(800,0,1000,800));
-        JTextArea temp = new JTextArea("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
-        temp.setEditable(false);
-        temp.setBounds(new Rectangle(800,0,1000,800));
+        //infoPanel.setBounds(new Rectangle(800,0,1000,800));
+        JLabel temp = new JLabel("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+        // temp.setEditable(false);
+        temp.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
         infoPanel.add(temp);
 
-        infoPanel.setLayout(new FlowLayout(FlowLayout.RIGHT,10,0));
-        topLevelPanel.add(infoPanel);
+        infoPanel.setBounds(800,0,1000,800);
+        infoPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+        window.add(infoPanel);
 
 
 
 //        window.setResizable(false);
+        window.setLayout(null);
         window.setVisible(true);
     }//end of initializer method
+
+
 }

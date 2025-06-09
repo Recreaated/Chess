@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+
 public class Piece {
-    String name;
+    private String name;
+    private boolean [][] movesPossible = new boolean[][] {{false}};
     public Piece(String name){
         this.name = name;
     }
@@ -10,7 +13,17 @@ public class Piece {
         return name;
     }
 
-    public void movesAvaliable(){}
+    public ArrayList<Tile> getAttackingPeices() {
+        return new ArrayList<Tile>();
+    }
+
+    public void updateMovesPossible(int r, int c){}
+
+    public void resetAttackingPiece(){}
+    public boolean[][] getMovesPossible() {
+        return movesPossible;
+    }
+
     public int[] possibleChecks(){
         int[] output = {-1,-1};
         return output;
