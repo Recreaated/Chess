@@ -1,15 +1,10 @@
-//import com.sun.tools.javac.Main;
-
-import com.sun.tools.javac.Main;
-
 import javax.swing.*;
-//import javax.swing.pla.basic.BasicOptionPaneUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
 
 public class MainWindow {
     public static Tile[][] chessBoard;
+
     private JFrame window;
     private JPanel MainPanel;
     private final Piece[][] startingLayout = {{new Rook("B.Rook"),new Knight("B.Knight"),new Bishop("B.Bishop"),new Queen("B.Queen"),new King("B.King"),new Bishop("B.Bishop"),new Knight("B.Knight"),new Rook("B.Rook")},
