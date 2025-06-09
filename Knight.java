@@ -11,29 +11,29 @@ public class Knight extends Piece{
         if (r <= 5 && c >= 1) {
             if (MainWindow.chessBoard[r + 2][c - 1].getName() == null||
                     !MainWindow.chessBoard[r + 2][c - 1].getName().startsWith(super.getName().substring(0,1))) {
-                    movesPossible[r + 2][c - 1] = true;
+                movesPossible[r + 2][c - 1] = true;
 
             }
         }
         if (r <= 5 && c <= 6) {
             if (MainWindow.chessBoard[r + 2][c + 1].getName() == null ||
                     !MainWindow.chessBoard[r + 2][c + 1].getName().startsWith(super.getName().substring(0,1))){
-                    movesPossible[r + 2][c + 1] = true;
+                movesPossible[r + 2][c + 1] = true;
 
             }
         }
-            //Up L
+        //Up L
         if (r >= 2 && c >= 1) {
             if (MainWindow.chessBoard[r - 2][c - 1].getName() == null||
                     !MainWindow.chessBoard[r - 2][c - 1].getName().startsWith(super.getName().substring(0,1))) {
-                    movesPossible[r - 2][c - 1] = true;
+                movesPossible[r - 2][c - 1] = true;
 
             }
         }
-        if (r >= 2 && c <= 7) {
+        if (r >= 2 && c <= 6) {
             if (MainWindow.chessBoard[r - 2][c + 1].getName() == null||
                     !MainWindow.chessBoard[r - 2][c + 1].getName().startsWith(super.getName().substring(0,1))) {
-                    movesPossible[r - 2][c + 1] = true;
+                movesPossible[r - 2][c + 1] = true;
 
             }
         }
@@ -42,14 +42,14 @@ public class Knight extends Piece{
         if (r <= 6 && c >= 2) {
             if (MainWindow.chessBoard[r + 1][c - 2].getName() == null||
                     !MainWindow.chessBoard[r + 1][c - 2].getName().startsWith(super.getName().substring(0,1))) {
-                    movesPossible[r + 1][c - 2] = true;
+                movesPossible[r + 1][c - 2] = true;
 
             }
         }
         if (r >= 1 && c >= 2) {
             if (MainWindow.chessBoard[r - 1][c - 2].getName() == null||
                     !MainWindow.chessBoard[r - 1][c - 2].getName().startsWith(super.getName().substring(0,1))) {
-                    movesPossible[r - 1][c - 2] = true;
+                movesPossible[r - 1][c - 2] = true;
 
             }
         }
@@ -57,14 +57,14 @@ public class Knight extends Piece{
         if (r >= 1 && c <= 5) {
             if (MainWindow.chessBoard[r - 1][c + 2].getName() == null||
                     !MainWindow.chessBoard[r - 1][c + 2].getName().startsWith(super.getName().substring(0,1))) {
-                    movesPossible[r - 1][c + 2] = true;
+                movesPossible[r - 1][c + 2] = true;
 
             }
         }
         if (r <= 6 && c <= 5) {
             if (MainWindow.chessBoard[r + 1][c + 2].getName() == null||
                     !MainWindow.chessBoard[r + 1][c + 2].getName().startsWith(super.getName().substring(0,1))) {
-                    movesPossible[r + 1][c + 2] = true;
+                movesPossible[r + 1][c + 2] = true;
 
             }
         }
