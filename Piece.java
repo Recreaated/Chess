@@ -18,6 +18,7 @@ public class Piece {
     }
 
     public void updateMovesPossible(int r, int c){}
+    public void addToTotalMoves(){}
 
     public void resetAttackingPiece(){}
     public boolean[][] getMovesPossible() {
