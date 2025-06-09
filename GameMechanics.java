@@ -4,7 +4,7 @@ public class GameMechanics{
     private static String[] turn= {"W","B"};
     private static int turnIndex = 0;
     private static Tile lastTile = null;
-    private static Tile kingInCheck = null;
+    private static ArrayList<Tile> kingInCheck = new ArrayList<Tile>();
     private static boolean noPossibleMoves = false;
 
     public static void updateLastTile(Tile t) {
@@ -24,19 +24,19 @@ public class GameMechanics{
                     lastTile = t;
                     System.out.println("check1");
                 }
-            } else if (t.getName() != null && lastTile.getName().substring(0, 1).equalsIgnoreCase(t.getName().substring(0, 1))) {
+            } else if (t.getName() != null && lastTile.getName()!= null && lastTile.getName().substring(0, 1).equalsIgnoreCase(t.getName().substring(0, 1))) {
                 System.out.println("check1.5");
                 lastTile = t;
                 System.out.println("check2");
-            } else if (lastTile != null && lastTile.getName().substring(0, 1).equalsIgnoreCase(turn[turnIndex % 2])) {
+            } else if (lastTile != null && lastTile.getName()!= null && lastTile.getName().substring(0, 1).equalsIgnoreCase(turn[turnIndex % 2])) {
                 System.out.println("check2.5");
                 if (lastTile.getMoves()[t.getX()][t.getY()]) {
                     swap(t);
                     turnIndex++;
                     System.out.println("piece moved");
-                    if(!noPossibleMoves && kingInCheck != null) {
+                    if(!noPossibleMoves && kingInCheck.size()>0) {
                         System.out.println("checking if there is any possible moves");
-                        noPossibleMoves = hasAPossibleMove(kingInCheck.getPiece().getAttackingPeices());
+                        noPossibleMoves = hasAPossibleMove(kingInCheck.getFirst().getPiece().getAttackingPeices());
                     }
 
                 }
@@ -60,11 +60,11 @@ public class GameMechanics{
 
         updateBoard();
         System.out.println("successfully updated board");
-        if(kingInCheck != null){
-            System.out.println(kingInCheck.getPiece().getAttackingPeices());
+        if(!kingInCheck.isEmpty()){
+            //System.out.println(kingInCheck.getPiece().getAttackingPeices());
             System.out.println("kingInCheck is not null");
-            System.out.println("kingInCheck name : " + kingInCheck.getName() + ". turn : " + turn[turnIndex % 2]);
-            if(kingInCheck.getName().substring(0,1).equalsIgnoreCase(turn[turnIndex % 2])){
+            //System.out.println("kingInCheck name : " + kingInCheck.getName() + ". turn : " + turn[turnIndex % 2]);
+            if(kingInCheck.size() > 1 ||kingInCheck.getFirst().getName().substring(0,1).equalsIgnoreCase(turn[turnIndex % 2])){
                 System.out.println("Swaping tiles...");
                 t.getButton().setLabel(tempTLabel);
                 t.setPiece(tempTPiece);
@@ -110,10 +110,12 @@ public class GameMechanics{
 
     private static void updateBoard(){
 
-        if (kingInCheck != null) {
-            kingInCheck.getPiece().resetAttackingPiece();
+        if (!kingInCheck.isEmpty()) {
+            for(Tile t : kingInCheck) {
+                t.getPiece().resetAttackingPiece();
+            }
         }
-        kingInCheck = null;
+        kingInCheck.clear();
         Tile king1 = null;
         Tile king2 = null;
         for(Tile[] r : MainWindow.chessBoard){
@@ -139,18 +141,20 @@ public class GameMechanics{
 
     public static void setKingInCheck(Tile t){
         System.out.println("successfully kingInCheck");
-        kingInCheck = t;
+        kingInCheck.add(t);
     }
 
     private static boolean hasAPossibleMove(ArrayList<Tile> attackingPieces){
         boolean output = true;
+//        ArrayList<int[]> temp = new ArrayList<int[]>();
 
-        boolean[][] moves = kingInCheck.getMoves();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (moves[i][j] && swap(MainWindow.chessBoard[i][j], kingInCheck)) {
+                //System.out.println(kingInCheck.getFirst().getMoves()[i][j]);
+                if (kingInCheck.getFirst().getMoves()[i][j] && !swap(MainWindow.chessBoard[i][j], kingInCheck.getFirst())) {
                     System.out.println("pos Check 1");
                     output = false;
+                    //temp.add(new int[] {i,j});
                 }
             }
         }
@@ -163,9 +167,10 @@ public class GameMechanics{
                                 if((c.getMoves()[row][col] && attackingPieces.get(0).getMoves()[row][col])
                                         || (c.getMoves()[row][col]
                                             && (row == attackingPieces.get(0).getX() && col == attackingPieces.get(0).getY()))){
-                                    if(!swap(kingInCheck,c)){
+                                    if(!swap(kingInCheck.getFirst(),c)){
                                         System.out.println("pos Check 2");
                                         output = false;
+//                                        temp.add(new int[] {row,col});
                                     }
                                 }
                             }
@@ -179,6 +184,7 @@ public class GameMechanics{
             System.out.println("Checkmate!");
         }
         System.out.println("no Possible move? :"+ output);
+//        System.out.println(temp);
         return output;
     }
 
