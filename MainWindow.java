@@ -4,17 +4,18 @@ import java.awt.event.ActionEvent;
 
 public class MainWindow {
     public static Tile[][] chessBoard;
-
+    public static boolean canPromote = false;
+    public static Tile Promotable = null;
     private JFrame window;
     private JPanel MainPanel;
     private final Piece[][] startingLayout = {{new Rook("B.Rook"),new Knight("B.Knight"),new Bishop("B.Bishop"),new Queen("B.Queen"),new King("B.King"),new Bishop("B.Bishop"),new Knight("B.Knight"),new Rook("B.Rook")},
-        {new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn")},
-        {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
-        {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
-        {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
-        {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
-        {new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn")},
-        {new Rook("W.Rook"),new Knight("W.Knight"),new Bishop("W.Bishop"),new Queen("W.Queen"),new King("W.King"),new Bishop("W.Bishop"),new Knight("W.Knight"),new Rook("W.Rook")}};
+            {new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn")},
+            {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
+            {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
+            {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
+            {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
+            {new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn"),new Pawn("W.Pawn")},
+            {new Rook("W.Rook"),new Knight("W.Knight"),new Bishop("W.Bishop"),new Queen("W.Queen"),new King("W.King"),new Bishop("W.Bishop"),new Knight("W.Knight"),new Rook("W.Rook")}};
 
 
     public MainWindow(){
@@ -57,7 +58,7 @@ public class MainWindow {
                 final Tile tile = chessBoard[row][col];
                 chessBoard[row][col].getButton().addActionListener((ActionEvent e) -> {
 
-                    System.out.print(label + " button was pressed.");
+//                    System.out.print(label + " button was pressed.");
                     GameMechanics.updateLastTile(tile);
                 });
                 MainPanel.add(chessBoard[row][col].getButton());
@@ -68,13 +69,50 @@ public class MainWindow {
 
         JPanel infoPanel = new JPanel();
         infoPanel.setBackground(Color.black);
-        //infoPanel.setBounds(new Rectangle(800,0,1000,800));
-        JLabel temp = new JLabel("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+        //infoPanel.setBounds(new Rectangle(800,0,500,800));
+        JLabel temp = new JLabel("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
         // temp.setEditable(false);
-        temp.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
+        //temp.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
         infoPanel.add(temp);
 
-        infoPanel.setBounds(800,0,1000,800);
+        JButton promoteToRook = new JButton("Promote to Rook");
+        promoteToRook.addActionListener((ActionEvent e) -> {
+            if(canPromote){
+                GameMechanics.promotePawn(new Rook(GameMechanics.getPreviousTurnName() + ".Rook"));
+            }
+        });
+        promoteToRook.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        infoPanel.add(promoteToRook);
+
+        JButton promoteToKnight = new JButton("Promote to knight");
+        promoteToKnight.addActionListener((ActionEvent e) -> {
+            if(canPromote){
+                GameMechanics.promotePawn(new Knight(GameMechanics.getPreviousTurnName() + ".Knight"));
+            }
+        });
+        promoteToKnight.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        infoPanel.add(promoteToKnight);
+
+        JButton promoteToBishop = new JButton("Promote to Bishop");
+        promoteToBishop.addActionListener((ActionEvent e) -> {
+            if(canPromote){
+                GameMechanics.promotePawn(new Bishop(GameMechanics.getPreviousTurnName() + ".Bishop"));
+            }
+        });
+        promoteToBishop.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        infoPanel.add(promoteToBishop);
+
+        JButton promoteToQueen = new JButton("Promote to Queen");
+        promoteToQueen.addActionListener((ActionEvent e) -> {
+            if(canPromote){
+                GameMechanics.promotePawn(new Queen(GameMechanics.getPreviousTurnName() + ".Queen"));
+            }
+        });
+        promoteToQueen.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        infoPanel.add(promoteToQueen);
+
+
+        infoPanel.setBounds(800,0,500,800);
         infoPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
         window.add(infoPanel);
 
