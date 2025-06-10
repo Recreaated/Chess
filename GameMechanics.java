@@ -63,6 +63,7 @@ public class GameMechanics{
                         }
                     }
                     turnIndex++;
+                    MainWindow.infoLabel.setText("Current Side to move piece : " + turn[turnIndex % 2]);
                     isInStalemate = isInStalemate();
 //                    System.out.println("piece moved");
                     if(!noPossibleMoves && kingInCheck.size()>0) {

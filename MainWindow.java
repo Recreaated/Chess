@@ -71,7 +71,7 @@ public class MainWindow {
         JPanel infoPanel = new JPanel();
         infoPanel.setBackground(Color.WHITE);
         //infoPanel.setBounds(new Rectangle(800,0,500,800));
-        JLabel temp = new JLabel("");
+        JLabel temp = new JLabel("Current Side to move piece : W");
         infoLabel = temp;
         // temp.setEditable(false);
         //temp.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
