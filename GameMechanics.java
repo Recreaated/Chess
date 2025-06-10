@@ -56,9 +56,9 @@ public class GameMechanics{
                         }
                     }
                     turnIndex++;
-                    MainWindow.infoLabel.setText("Current Side to move piece : " + turn[turnIndex % 2]);
+                    MainWindow.infoLabel.setText("Current Side to move piece : " + turn[turnIndex % 2] + ((kingInCheck.size()>0) ? "\n                                                              You are in check" : ""));
                     isInStalemate = isInStalemate();
-                    if(!noPossibleMoves && kingInCheck.size()>0) {
+                    if(!noPossibleMoves && !kingInCheck.isEmpty()) {
                         noPossibleMoves = hasAPossibleMove();
                     }
 
@@ -76,7 +76,7 @@ public class GameMechanics{
 
     //Perm Swap
     //Permanently swaps two tiles
-    //However in the case that this puts the king into check, it is undone
+    //However in the case that this puts or leaves the king into check, it is undone
     private static void swap(Tile t){
         String tempTLabel = t.getName();
         String tempLastLabel = lastTile.getName();
@@ -111,8 +111,8 @@ public class GameMechanics{
         lastTile.getButton().setLabel("");
 
         updateBoard();
-        if(!kingInCheck.isEmpty() && !kingInCheck.getFirst().getName().substring(0,1).equalsIgnoreCase(turn[turnIndex % 2])){
-            if(kingInCheck.size() > 1 ||kingInCheck.getFirst().getName().substring(0,1).equalsIgnoreCase(turn[turnIndex % 2])){
+        if (!kingInCheck.isEmpty()) {
+            if (kingInCheck.size() > 1 || kingInCheck.getFirst().getName().substring(0, 1).equalsIgnoreCase(turn[turnIndex % 2])) {
                 t.getButton().setLabel(tempTLabel);
                 t.setPiece(tempTPiece);
                 lastTile.setPiece(tempLastPiece);
@@ -120,8 +120,10 @@ public class GameMechanics{
                 tempLastPiece.addToTotalMoves(-1);
 
                 turnIndex--;
-            }
+            } else {
+                lastTile = null;
 
+            }
         } else {
             lastTile = null;
 
