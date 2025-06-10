@@ -1,5 +1,6 @@
 public class Rook extends Piece{
     private boolean[][] movesPossible;
+    private int timesMoved = 0;
 
     public Rook (String name){
         super(name);
@@ -84,6 +85,17 @@ public class Rook extends Piece{
         int[] output = {0,0};
         return output;
     }
+
+    @Override
+    public void addToTotalMoves(int i){
+        timesMoved += i;
+    }
+
+    @Override
+    public int getTimesMoved(){
+        return timesMoved;
+    }
+
     private void print(){
         for(boolean[] r : movesPossible){
             System.out.print("[");

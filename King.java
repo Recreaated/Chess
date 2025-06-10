@@ -2,8 +2,11 @@ import java.util.ArrayList;
 
 public class King extends Piece{
     private ArrayList<Tile> attackingPeices= new ArrayList<Tile>();
+    private int timesMoved = 0;
     private boolean[][] movesPossible;
     private boolean[][] oppositePieceChecks = new boolean[8][8];
+    private boolean tempGhostPiece = false;
+
 
     public King (String name){
         super(name);
@@ -84,12 +87,46 @@ public class King extends Piece{
             }
         }
 //        print();
+        //Special Case - Castling
+
+        if(!tempGhostPiece&&attackingPeices.isEmpty() && timesMoved == 0){
+//            System.out.println("Check if castle is possible: " + super.getName().substring(0,1));
+            //Long Castle
+            if(c >= 4 && MainWindow.chessBoard[r][c - 1].getName() == null && movesPossible[r][c-1]){
+//                System.out.println("LongCastle Check1");
+                tempGhostPiece = true;
+                if(MainWindow.chessBoard[r][c - 2].getName() == null && GameMechanics.swap(MainWindow.chessBoard[r][c - 2],MainWindow.chessBoard[r][c])){
+//                    System.out.println("LongCastle Check2");
+                    if(MainWindow.chessBoard[r][c - 3].getName() == null){
+//                        System.out.println("LongCastle Check3");
+                        if(MainWindow.chessBoard[r][c - 4].getName().equalsIgnoreCase("W.Rook") && MainWindow.chessBoard[r][c - 3].getPiece().getTimesMoved() == 0){
+//                            System.out.println(super.getName() + " can LongCastle");
+                            movesPossible[r][c - 2] = true;
+                        }
+                    }
+                }
+            }
+            tempGhostPiece = false;
+            //short Castle
+            if(c <= 4 && MainWindow.chessBoard[r][c + 1].getName() == null && movesPossible[r][c+1]){
+//                System.out.println("ShortCastle Check1");
+                tempGhostPiece = true;
+                if(MainWindow.chessBoard[r][c + 2].getName() == null && GameMechanics.swap(MainWindow.chessBoard[r][c + 2],MainWindow.chessBoard[r][c])){
+//                    System.out.println("ShortCastle Check2");
+                    if(MainWindow.chessBoard[r][c + 3].getName() != null && MainWindow.chessBoard[r][c + 3].getName().equalsIgnoreCase("W.Rook") && MainWindow.chessBoard[r][c + 3].getPiece().getTimesMoved() == 0){
+//                        System.out.println(super.getName() + " can ShortCastle");
+                        movesPossible[r][c + 2] = true;
+                    }
+                }
+            }
+            tempGhostPiece = false;
+        }
         if(!attackingPeices.isEmpty()){
 //            System.out.println("updating kingincheck");
             if(attackingPeices.size()>=2){
                 trimDupes();
             }
-            System.out.println("In King class: " + attackingPeices.size());
+//            System.out.println("In King class: " + attackingPeices.size());
             GameMechanics.setKingInCheck(MainWindow.chessBoard[r][c]);
         }
     }
@@ -202,7 +239,15 @@ public class King extends Piece{
             }
         }
     }
+    @Override
+    public void addToTotalMoves(int i){
+        timesMoved += i;
+    }
 
+    @Override
+    public int getTimesMoved(){
+        return timesMoved;
+    }
 
     private void print(){
         for(boolean[] r : movesPossible){

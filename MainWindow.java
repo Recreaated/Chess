@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class MainWindow {
+    public static JLabel infoLabel;
     public static Tile[][] chessBoard;
     public static boolean canPromote = false;
     public static Tile Promotable = null;
@@ -68,9 +69,10 @@ public class MainWindow {
 //        topLevelPanel.add(MainPanel);
 
         JPanel infoPanel = new JPanel();
-        infoPanel.setBackground(Color.black);
+        infoPanel.setBackground(Color.WHITE);
         //infoPanel.setBounds(new Rectangle(800,0,500,800));
-        JLabel temp = new JLabel("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+        JLabel temp = new JLabel("");
+        infoLabel = temp;
         // temp.setEditable(false);
         //temp.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
         infoPanel.add(temp);
@@ -112,7 +114,7 @@ public class MainWindow {
         infoPanel.add(promoteToQueen);
 
 
-        infoPanel.setBounds(800,0,500,800);
+        infoPanel.setBounds(800,0,600,800);
         infoPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
         window.add(infoPanel);
 

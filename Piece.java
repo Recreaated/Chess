@@ -16,9 +16,14 @@ public class Piece {
     public ArrayList<Tile> getAttackingPeices() {
         return new ArrayList<Tile>();
     }
+    public int getTimesMoved(){
+        return Integer.MIN_VALUE;
+    }
 
     public void updateMovesPossible(int r, int c){}
-    public void addToTotalMoves(){}
+    public void addToTotalMoves(int i){}
+    public void setTempGhostPiece(boolean b){}
+    public boolean getTempGhostPiece(){return false;}
 
     public void resetAttackingPiece(){}
     public boolean[][] getMovesPossible() {
