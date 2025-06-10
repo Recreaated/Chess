@@ -4,6 +4,8 @@ public class Knight extends Piece{
     public Knight (String name){
         super(name);
     }
+
+    //updates the moves possible for the Knight Pieces
     @Override
     public void updateMovesPossible(int r, int c){
         movesPossible = new boolean[8][8];
@@ -68,26 +70,10 @@ public class Knight extends Piece{
 
             }
         }
-        //print();
-        //return movesPossible;
-    }
-    @Override
-    public int[] possibleChecks(){
-        int[] output = {0,0};
-        return output;
     }
 
+    //returns the moves possible
     public boolean[][] getMovesPossible() {
         return movesPossible;
-    }
-
-    private void print(){
-        for(boolean[] r : movesPossible){
-            System.out.print("[");
-            for(boolean c : r){
-                System.out.print(((c)?"x":"o")+ " ");
-            }
-            System.out.println("]");
-        }
     }
 }

@@ -9,6 +9,8 @@ public class Pawn extends Piece{
     public Pawn (String name){
         super(name);
     }
+
+    //updates the moves possible for the pawn Pieces, including special cases
     @Override
     public void updateMovesPossible(int r, int c){
         movesPossible = new boolean[8][8];
@@ -35,37 +37,23 @@ public class Pawn extends Piece{
                 }
             }
             //En Passant Special Case
-
             if(r == 3 ){
-//                System.out.println(MainWindow.chessBoard[r][c + 1].getName() != null);
-//                System.out.println(MainWindow.chessBoard[r][c - 1].getName() != null);
-//                System.out.print(r);
-//                System.out.println("check for En passant: W");
                 if (c != 7 && MainWindow.chessBoard[r][c + 1].getName() != null) {
-//                    System.out.println("En passant(Right) check1");
                     if (MainWindow.chessBoard[r][c + 1].getName().contains("Pawn")) {
-//                        System.out.println("En passant(Right) check2");
                         if (!MainWindow.chessBoard[r][c + 1].getName().startsWith(super.getName().substring(0, 1))) {
                             if(MainWindow.chessBoard[r][c + 1].getPiece().getTimesMoved() == 1 && rightChance) {
                                 rightChance = false;
                                 movesPossible[r - 1][c + 1] = true;
-//                                System.out.println("En passant(Right)");
                             }
                         }
                     }
                 }
                 if ((c != 0) && (MainWindow.chessBoard[r][c - 1].getName() != null)) {
-//                    System.out.println("En passant(Left) check1");
                     if (MainWindow.chessBoard[r][c - 1].getName().contains("Pawn")) {
-//                        System.out.println("En passant(Left) check2");
                         if (!MainWindow.chessBoard[r][c - 1].getName().startsWith(super.getName().substring(0, 1))) {
-//                            System.out.println("Pawn moved: " + MainWindow.chessBoard[r][c - 1].getPiece().getTimesMoved());
-//                            System.out.println("Piece in Question: " + MainWindow.chessBoard[r][c - 1].getPiece().getName());
-
                             if(MainWindow.chessBoard[r][c - 1].getPiece().getTimesMoved() == 1 && leftChance) {
                                 leftChance = false;
                                 movesPossible[r - 1][c - 1] = true;
-//                                System.out.println("En passant(Left)");
                             }
                         }
                     }
@@ -95,60 +83,44 @@ public class Pawn extends Piece{
             }
             //En Passant Special Case
             if(r == 4){
-//                System.out.println(r);
-//                System.out.println(c);
-//                System.out.print(r);
-//                System.out.println("check for En passant: B");
                 if (c != 7 && MainWindow.chessBoard[r][c + 1].getName() != null ) {
-//                    System.out.println("En passant(Right) check1");
                     if (MainWindow.chessBoard[r][c + 1].getName().contains("Pawn")) {
-//                        System.out.println("En passant(Right) check2");
                         if (!MainWindow.chessBoard[r][c + 1].getName().startsWith(super.getName().substring(0, 1))) {
                             if(MainWindow.chessBoard[r][c + 1].getPiece().getTimesMoved() == 1 && rightChance) {
                                 rightChance = false;
                                 movesPossible[r + 1][c + 1] = true;
-//                                System.out.println("En passant(Right)");
                             }
                         }
                     }
                 }
                 if (c != 0 && MainWindow.chessBoard[r][c - 1].getName() != null) {
-//                    System.out.println("En passant(Left) check1");
                     if (MainWindow.chessBoard[r][c - 1].getName().contains("Pawn")) {
-//                        System.out.println("En passant(Left) check2");
                         if (!MainWindow.chessBoard[r][c - 1].getName().startsWith(super.getName().substring(0, 1))) {
                             if(MainWindow.chessBoard[r][c - 1].getPiece().getTimesMoved() == 1 && leftChance) {
                                 leftChance = false;
                                 movesPossible[r + 1][c - 1] = true;
-//                                System.out.println("En passant(Left)");
                             }
                         }
                     }
                 }
             }
         }
-        //return movesPossible;
-    }
+    } // end of update Method
+
+    //returns the possible moves this piece can make
     public boolean[][] getMovesPossible() {
         return movesPossible;
     }
+
+    //updates the timesMoved int
     @Override
     public void addToTotalMoves(int i){
         timesMoved += i;
     }
 
+    //returns the certain amount of moves that this piece has made
     @Override
     public int getTimesMoved(){
         return timesMoved;
-    }
-
-    private void print(){
-        for(boolean[] r : movesPossible){
-            System.out.print("[");
-            for(boolean c : r){
-                System.out.print(((c)?"x":"o")+ " ");
-            }
-            System.out.println("]");
-        }
     }
 }

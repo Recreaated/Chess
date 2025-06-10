@@ -8,7 +8,7 @@ public class MainWindow {
     public static boolean canPromote = false;
     public static Tile Promotable = null;
     private JFrame window;
-    private JPanel MainPanel;
+    private JPanel mainPanel;
     private final Piece[][] startingLayout = {{new Rook("B.Rook"),new Knight("B.Knight"),new Bishop("B.Bishop"),new Queen("B.Queen"),new King("B.King"),new Bishop("B.Bishop"),new Knight("B.Knight"),new Rook("B.Rook")},
             {new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn"),new Pawn("B.Pawn")},
             {new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece(),new Piece()},
@@ -20,29 +20,33 @@ public class MainWindow {
 
 
     public MainWindow(){
-        innit();
+        init();
     }//end of constructor
 
-    private void innit(){
+    //initialization of MainWindow
+    private void init(){
+        //Creation of the Window
         window = new JFrame();
         window.setTitle("Chess");
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setSize(1000,900);
         window.setLocationRelativeTo(null);
 
-        //topLevelPanel = new JPanel();
-        MainPanel = new JPanel();
+        //creation of the mainPanel
+        //hols the buttons needed for the board
+        mainPanel = new JPanel();
+        //this sets the layout so the buttons are correctly fitted
+        mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+        mainPanel.setBounds(0,0,800,800);
 
-        MainPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-        MainPanel.setBounds(0,0,800,800);
-        //topLevelPanel.add(MainPanel);
-        //topLevelPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-        window.add(MainPanel);
+        //added this panel to the window
+        window.add(mainPanel);
 
-
-
-        MainPanel.setBackground(Color.WHITE);
+        //set the background to white
+        mainPanel.setBackground(Color.WHITE);
         char[] horLtr = {'A','B','C','D','E','F','G','H'};
+
+        //setting up the buttons to make the chess board
         chessBoard = new Tile[8][8];
         for(int row = 0; row < 8; row++) {
             for(int col = 0; col < 8; col++) {
@@ -55,28 +59,25 @@ public class MainWindow {
                     chessBoard[row][col].getButton().setBackground(new Color(0,148,56));
                 }
                 chessBoard[row][col].getButton().setPreferredSize((new Dimension(100,100)));
-                //Interface usage here "ActionEvent -> ..." lambda
+                //needed so that the event handler can access the tile it holds
                 final Tile tile = chessBoard[row][col];
+                //Interface usage here "ActionEvent -> ..." lambda
                 chessBoard[row][col].getButton().addActionListener((ActionEvent e) -> {
-
-//                    System.out.print(label + " button was pressed.");
                     GameMechanics.updateLastTile(tile);
                 });
-                MainPanel.add(chessBoard[row][col].getButton());
+                mainPanel.add(chessBoard[row][col].getButton());
             }
         }
-//        MainPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-//        topLevelPanel.add(MainPanel);
 
+        //creation of the info panel
+        //shows whose turn it is
         JPanel infoPanel = new JPanel();
         infoPanel.setBackground(Color.WHITE);
-        //infoPanel.setBounds(new Rectangle(800,0,500,800));
         JLabel temp = new JLabel("Current Side to move piece : W");
         infoLabel = temp;
-        // temp.setEditable(false);
-        //temp.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
         infoPanel.add(temp);
 
+        //The buttons that control what a pawn will promote to
         JButton promoteToRook = new JButton("Promote to Rook");
         promoteToRook.addActionListener((ActionEvent e) -> {
             if(canPromote){
@@ -113,14 +114,15 @@ public class MainWindow {
         promoteToQueen.setLayout(new FlowLayout(FlowLayout.RIGHT));
         infoPanel.add(promoteToQueen);
 
-
+        //setting the layout and a set size of this panel
         infoPanel.setBounds(800,0,600,800);
         infoPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+
+        //added to the window
         window.add(infoPanel);
 
 
-
-//        window.setResizable(false);
+        //sets the window to be visible
         window.setLayout(null);
         window.setVisible(true);
     }//end of initializer method
