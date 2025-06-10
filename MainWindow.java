@@ -85,6 +85,7 @@ public class MainWindow {
             }
         });
         promoteToRook.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        promoteToRook.setPreferredSize((new Dimension(150,50)));
         infoPanel.add(promoteToRook);
 
         JButton promoteToKnight = new JButton("Promote to knight");
@@ -94,6 +95,8 @@ public class MainWindow {
             }
         });
         promoteToKnight.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        promoteToKnight.setPreferredSize((new Dimension(150,50)));
+
         infoPanel.add(promoteToKnight);
 
         JButton promoteToBishop = new JButton("Promote to Bishop");
@@ -103,6 +106,8 @@ public class MainWindow {
             }
         });
         promoteToBishop.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        promoteToBishop.setPreferredSize((new Dimension(150,50)));
+
         infoPanel.add(promoteToBishop);
 
         JButton promoteToQueen = new JButton("Promote to Queen");
@@ -112,10 +117,11 @@ public class MainWindow {
             }
         });
         promoteToQueen.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        promoteToQueen.setPreferredSize((new Dimension(150,50)));
         infoPanel.add(promoteToQueen);
 
         //setting the layout and a set size of this panel
-        infoPanel.setBounds(800,0,600,800);
+        infoPanel.setBounds(800,0,300,800);
         infoPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
 
         //added to the window
