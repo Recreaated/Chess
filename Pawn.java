@@ -26,7 +26,7 @@ public class Pawn extends Piece{
                     movesPossible[r - 1][c] = true;
                 }
                 if (timesMoved == 0) {
-                    if (MainWindow.chessBoard[r - 2][c].getName() == null) {
+                    if (movesPossible[r - 1][c] && MainWindow.chessBoard[r - 2][c].getName() == null) {
                         movesPossible[r - 2][c] = true;
                     }
                 }
@@ -71,7 +71,7 @@ public class Pawn extends Piece{
                     movesPossible[r + 1][c] = true;
                 }
                 if (timesMoved == 0) {
-                    if (MainWindow.chessBoard[r + 2][c].getName() == null) {
+                    if (movesPossible[r + 1][c] && MainWindow.chessBoard[r + 2][c].getName() == null) {
                         movesPossible[r + 2][c] = true;
                     }
                 }
