@@ -1,4 +1,3 @@
-//import com.sun.tools.javac.Main;
 import javax.swing.SwingUtilities;
 
 public class ChessDriver {
