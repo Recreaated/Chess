@@ -56,7 +56,7 @@ public class GameMechanics{
                         }
                     }
                     turnIndex++;
-                    MainWindow.infoLabel.setText("Current Side to move piece : " + turn[turnIndex % 2] + ((kingInCheck.size()>0) ? "\n                                                              You are in check" : ""));
+                    MainWindow.infoLabel.setText("Current Side to move piece : " + turn[turnIndex % 2] + ((kingInCheck.size()>0) ? " You are in check" : ""));
                     isInStalemate = isInStalemate();
                     if(!noPossibleMoves && !kingInCheck.isEmpty()) {
                         noPossibleMoves = hasAPossibleMove();
