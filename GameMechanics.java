@@ -4,10 +4,10 @@ import java.util.ArrayList;
 //This controls the basic game mechanics such as
 //pawn promotion, moevement of pieces, checks, checkmates, and stalemates
 public class GameMechanics{
-    private static String[] turn= {"W","B"};
+    private static final String[] turn= {"W","B"};
     private static int turnIndex = 0;
     private static Tile lastTile = null;
-    private static ArrayList<Tile> kingInCheck = new ArrayList<Tile>();
+    private static final ArrayList<Tile> kingInCheck = new ArrayList<Tile>();
     private static boolean noPossibleMoves = false;
     private static boolean isInStalemate = false;
     private static Tile king1 = null;
@@ -56,7 +56,7 @@ public class GameMechanics{
                         }
                     }
                     turnIndex++;
-                    MainWindow.infoLabel.setText("Current Side to move piece : " + turn[turnIndex % 2] + ((kingInCheck.size()>0) ? " You are in check" : ""));
+                    MainWindow.infoLabel.setText("Current Side to move piece : " + turn[turnIndex % 2] + ((!kingInCheck.isEmpty()) ? " You are in check" : ""));
                     isInStalemate = isInStalemate();
                     if(!noPossibleMoves && !kingInCheck.isEmpty()) {
                         noPossibleMoves = hasAPossibleMove();
@@ -146,7 +146,7 @@ public class GameMechanics{
         t2.getButton().setLabel("");
         updateBoard();
 
-        if(kingInCheck.isEmpty()){
+        if(kingInCheck.isEmpty() || !kingInCheck.getFirst().getName().substring(0,1).equalsIgnoreCase(turn[((turnIndex)%2)])){
             output = true;
         }
         t1.getButton().setLabel(tempTLabel);

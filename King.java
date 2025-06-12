@@ -17,6 +17,7 @@ public class King extends Piece{
     //Also accounts for special cases
     @Override
     public void updateMovesPossible(int r, int c){
+        System.out.println("check1 " + super.getName());
         attackingPieces.clear();
         movesPossible = new boolean[8][8];
         if(GameMechanics.getTurnIndex() >= 2) {
@@ -191,6 +192,17 @@ public class King extends Piece{
                 }
             }
         }
+        System.out.println(super.getName());
+        for(boolean[] r : output){
+            System.out.print("[ ");
+            for(boolean c : r){
+                System.out.print((c)? "X " : "O ");
+            }
+            System.out.println("]");
+        }
+
+
+
         return output;
     }
 
